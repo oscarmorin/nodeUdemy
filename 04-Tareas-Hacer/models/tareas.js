@@ -33,7 +33,7 @@ class Tareas {
         this._listado[tarea.id] = tarea;
     }
 
-    listadoCompleto(listado){
+    listadoCompleto(){
 
         console.log();
             
@@ -47,6 +47,37 @@ class Tareas {
                 console.log(`${idx} ${desc} :: ${estado}`)
            });
       
+        
+    }
+
+    listarPendientesCompletadas( completadas = true ){
+
+        let contador = 0;
+        this.listadoArr.forEach((tarea,i) => {
+
+            
+            const { desc, completadoEn } = tarea;
+            const estado = (completadoEn)
+                                ? 'Completada'.green
+                                : 'Pendiente'.red;
+                                
+            //Verificar si hay true para listar pendientes y completadas
+            if ( completadas ){
+                //Si hay una fecha mostrar completadas
+                if(completadoEn){
+                    contador += 1;
+                    console.log(`${(contador + '.').red} ${desc} :: ${completadoEn}`);
+                }
+
+            } else {
+                //Si no hay fecha mostrar pendientes
+                if(!completadoEn){
+                    contador += 1;
+                    console.log(`${(contador + '.').red} ${desc} :: ${estado}`);
+                }
+            }
+            
+       });
         
     }
 }
