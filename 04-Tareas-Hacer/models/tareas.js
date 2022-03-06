@@ -18,6 +18,12 @@ class Tareas {
         this._listado = {};
     }
 
+    borrarTarea( id='' ) {
+        if(this._listado[id]){
+            delete this._listado[id];
+        }
+    }
+
     cargarTareasFromArray( tareas = [] ) {
         
         //recorrer el archivo y agregar tareas 
@@ -66,7 +72,7 @@ class Tareas {
                 //Si hay una fecha mostrar completadas
                 if(completadoEn){
                     contador += 1;
-                    console.log(`${(contador + '.').red} ${desc} :: ${completadoEn}`);
+                    console.log(`${(contador + '.').red} ${desc} :: ${completadoEn.green}`);
                 }
 
             } else {
@@ -80,6 +86,30 @@ class Tareas {
        });
         
     }
+
+    toggleCompletadas (ids = []){
+
+        ids.forEach( id => {
+
+            const tarea = this._listado[id];
+
+            if (!tarea.completadoEn){
+                tarea.completadoEn = new Date().toISOString();
+            }
+            
+        });
+
+        this.listadoArr.forEach( tarea => {
+
+            if (!ids.includes(tarea.id)){
+                this._listado[tarea.id].completadoEn = null;
+                
+            }
+
+        });
+
+    }
+
 }
 
 module.exports = Tareas;
