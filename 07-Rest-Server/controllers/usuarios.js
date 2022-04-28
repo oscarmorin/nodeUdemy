@@ -68,15 +68,10 @@ const Usuario = require('../models/usuario');
 
     const { id } = req.params;
 
-    //fisicamente lo borramos
-    //const usuario = await Usuario.findByIdAndDelete( id );
-
     //Cambiar estado de usuario
     const usuario = await Usuario.findByIdAndUpdate(id, {estado: false } );
 
-    res.json({
-        id
-    });
+    res.json(usuario);
   }
 
   module.exports = {
